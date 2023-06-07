@@ -8,7 +8,8 @@
     tools:context=".ui.detail.DetailActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/detail_img"
+        android:contentDescription="@string/gambar"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +21,7 @@
         app:srcCompat="@color/purple_700" />
 
     <TextView
-        android:id="@+id/detail_batik_name"
+        android:id="@+id/detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -30,10 +31,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:text="NAMA BATIK" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_img"
+        tools:text="NAMA" />
 
     <TextView
+        android:id="@+id/detail_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -41,8 +43,8 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/detail_batik_name"
-        app:layout_constraintTop_toBottomOf="@+id/detail_batik_name"
+        app:layout_constraintStart_toStartOf="@+id/detail_name"
+        app:layout_constraintTop_toBottomOf="@+id/detail_name"
         tools:text="Deskripsi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
