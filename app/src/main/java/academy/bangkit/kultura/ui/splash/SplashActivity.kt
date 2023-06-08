@@ -1,8 +1,7 @@
 package academy.bangkit.kultura.ui.splash
 
-import academy.bangkit.kultura.R
 import academy.bangkit.kultura.databinding.ActivitySplashBinding
-import academy.bangkit.kultura.ui.home.HomeActivity
+import academy.bangkit.kultura.ui.dashboard.DashboardActivity
 import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler()
         handler.postDelayed({
 
-            val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+            val intent = Intent(this@SplashActivity, DashboardActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

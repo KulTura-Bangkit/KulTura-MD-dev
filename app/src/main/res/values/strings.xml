@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Kultura</string>
     <string name="gambar">Gambar</string>
+    <string name="search">Search</string>
+    <string name="recomendations">Recommendations</string>
+    <string name="nama">Nama</string>
+    <string name="nik">NIK</string>
+    <string name="email">email</string>
 </resources>
