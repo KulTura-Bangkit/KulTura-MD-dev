@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +20,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         btnMoveActivity1.setOnClickListener(this)
         val btnMoveActivity2: ImageButton = findViewById(R.id.imageButton2)
         btnMoveActivity2.setOnClickListener(this)
+
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerrecom)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
     }
     override fun onClick(v: View?) {
