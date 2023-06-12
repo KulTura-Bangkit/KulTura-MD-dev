@@ -2,6 +2,7 @@ package academy.bangkit.kultura.ui.upload
 
 import academy.bangkit.kultura.R
 import academy.bangkit.kultura.databinding.ActivityUploadPhotoBinding
+import academy.bangkit.kultura.ui.dashboard.DashboardActivity
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
@@ -14,9 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -34,11 +41,16 @@ class UploadPhotoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadPhotoBinding
     private lateinit var photoPath : String
     private var getFile: File? = null
+    private lateinit var hasil: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadPhotoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val judul: TextView = findViewById(R.id.textView4)
+        hasil = intent.getStringExtra("pilihan")!!
+        judul.text = "Analisa sebuah " + hasil + " !"
 
         binding.buttonCamera.setOnClickListener {
             takePhoto()
@@ -182,10 +194,27 @@ class UploadPhotoActivity : AppCompatActivity() {
                 file.name,
                 requestImageFile
             )
+            val opsi1: Button = findViewById(R.id.option1)
+            opsi1.isVisible = false
+            val opsi2: Button = findViewById(R.id.option2)
+            opsi2.isVisible = false
+            val opsi3: Button = findViewById(R.id.option3)
+            opsi3.isVisible = false
 
-            val service = ApiConfig().getApiService().uploadImage(imageMultipart)
+            var service = ApiConfig().getApiService().uploadImage(imageMultipart)
+
+            if(hasil == "batik"){
+
+            }else if (hasil == "makanan"){
+                service = ApiConfig().getApiService().uploadImage2(imageMultipart)
+            }else if (hasil == "bangunan"){
+                service = ApiConfig().getApiService().uploadImage3(imageMultipart)
+            }
+
 
             Toast.makeText(this@UploadPhotoActivity, "Uploading Image", Toast.LENGTH_SHORT).show()
+            val opsi4: ProgressBar = findViewById(R.id.progressBar)
+            opsi4.isVisible = true
 
             service.enqueue(object : Callback<FileUploadResponse> {
                 override fun onResponse(
@@ -195,7 +224,38 @@ class UploadPhotoActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            Toast.makeText(this@UploadPhotoActivity, responseBody.label_1, Toast.LENGTH_SHORT).show()
+                            opsi4.isVisible = false
+                            val opsi1: Button = findViewById(R.id.option1)
+                            opsi1.text = responseBody.percent_1.toString() + "% - " + responseBody.label_1
+                            opsi1.setOnClickListener{
+                                val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
+                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                pindah.putExtra("hasil", responseBody.label_1)
+                                startActivity(pindah)
+                            }
+                            opsi1.isVisible = true
+                            val opsi2: Button = findViewById(R.id.option2)
+                            opsi2.text = responseBody.percent_2.toString() + "% - " + responseBody.label_2
+                            opsi2.setOnClickListener{
+                                val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
+                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                pindah.putExtra("hasil", responseBody.label_2)
+                                startActivity(pindah)
+
+                            }
+                            opsi2.isVisible = true
+                            val opsi3: Button = findViewById(R.id.option3)
+                            opsi3.text = responseBody.percent_3.toString() + "% - " + responseBody.label_3
+                            opsi3.setOnClickListener{
+                                val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
+                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                pindah.putExtra("hasil", responseBody.label_3)
+                                startActivity(pindah)
+                            }
+                            opsi3.isVisible = true
+                            Toast.makeText(this@UploadPhotoActivity,"Hasil Analisis sudah ditampilkan", Toast.LENGTH_SHORT).show()
+
+
                             //val moveWithDataIntent = Intent(this@UploadPhotoActivity, DetectionResultActivity::class.java)
                             //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_DEST, responseBody.label)
                             //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_IMG, responseBody.image_url)
@@ -203,16 +263,21 @@ class UploadPhotoActivity : AppCompatActivity() {
                         }
                     } else {
                         Toast.makeText(this@UploadPhotoActivity, response.message(), Toast.LENGTH_SHORT).show()
+                        opsi4.isVisible = false
                     }
                 }
                 override fun onFailure(call: Call<FileUploadResponse>, t: Throwable) {
                     Toast.makeText(this@UploadPhotoActivity, "Gagal instance Retrofit", Toast.LENGTH_SHORT).show()
+                    opsi4.isVisible = false
                 }
             })
         } else {
             Toast.makeText(this@UploadPhotoActivity, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+            val opsi4: ProgressBar = findViewById(R.id.progressBar)
+            opsi4.isVisible = false
         }
     }
+
 
     companion object{
         const val FILENAME_FORMAT = "dd-MMM-yyyy"

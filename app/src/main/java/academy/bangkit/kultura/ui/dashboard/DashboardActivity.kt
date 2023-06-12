@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         btnMoveActivity1.setOnClickListener(this)
         val btnMoveActivity2: ImageButton = findViewById(R.id.imageButton2)
         btnMoveActivity2.setOnClickListener(this)
+
+        val cari:EditText = findViewById(R.id.Search)
+        cari.setText(intent.getStringExtra("hasil"))
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerrecom)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

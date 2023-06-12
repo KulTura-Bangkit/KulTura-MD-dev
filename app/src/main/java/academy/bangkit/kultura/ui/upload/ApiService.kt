@@ -33,6 +33,17 @@ interface ApiService {
     fun uploadImage(
         @Part file: MultipartBody.Part,
     ): Call<FileUploadResponse>
+    @Multipart
+    @POST("/predict2")
+    fun uploadImage2(
+        @Part file: MultipartBody.Part,
+    ): Call<FileUploadResponse>
+
+    @Multipart
+    @POST("/predict3")
+    fun uploadImage3(
+        @Part file: MultipartBody.Part,
+    ): Call<FileUploadResponse>
 }
 class ApiConfig{
     fun getApiService(): ApiService {

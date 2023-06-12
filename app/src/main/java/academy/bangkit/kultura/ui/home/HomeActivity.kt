@@ -24,17 +24,17 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener  {
         when (v?.id) {
             R.id.btn_home_batik -> {
                 val moveIntent = Intent(this@HomeActivity, UploadPhotoActivity::class.java)
-
+                moveIntent.putExtra("pilihan","batik")
                 startActivity(moveIntent)
             }
             R.id.btn_home_food ->{
                 val moveIntent = Intent(this@HomeActivity, UploadPhotoActivity::class.java)
-
+                moveIntent.putExtra("pilihan","makanan")
                 startActivity(moveIntent)
             }
             R.id.btn_home_house ->{
                 val moveIntent = Intent(this@HomeActivity, UploadPhotoActivity::class.java)
-
+                moveIntent.putExtra("pilihan","bangunan")
                 startActivity(moveIntent)
             }
         }
