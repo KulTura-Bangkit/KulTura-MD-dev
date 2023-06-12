@@ -14,4 +14,5 @@
     <string name="option1">Option1 - 100%</string>
     <string name="option2">Option2 - 50%</string>
     <string name="option3">Option3 - 25%</string>
+    <string name="pick_picture">Pilih Gambar/Foto</string>
 </resources>
