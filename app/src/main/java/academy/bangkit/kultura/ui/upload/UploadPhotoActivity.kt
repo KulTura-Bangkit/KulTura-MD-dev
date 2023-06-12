@@ -6,18 +6,25 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
+import androidx.exifinterface.media.ExifInterface
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +46,10 @@ class UploadPhotoActivity : AppCompatActivity() {
         binding.buttonGallery.setOnClickListener {
             openGallery()
         }
-
+        /*
+        binding.buttonAnalyze.setOnClickListener{
+            uploadImage()
+        }*/
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -64,10 +74,10 @@ class UploadPhotoActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == RESULT_OK) {
             val myFile = File(photoPath)
-            myFile.let { file ->
-                getFile = file
-                binding.imageView2.setImageBitmap(BitmapFactory.decodeFile(file.path))
-            }
+            getFile = reduceFileImage(myFile)
+            val result = BitmapFactory.decodeFile(getFile?.path)
+            binding.imageView2.setImageBitmap(result)
+
         }
     }
 
@@ -115,7 +125,92 @@ class UploadPhotoActivity : AppCompatActivity() {
         return myFile
     }
 
+    fun reduceFileImage(file: File): File {
+        val bitmap = BitmapFactory.decodeFile(file.path)
+        val ei = ExifInterface(file.path)
+        val orientation: Int = ei.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_UNDEFINED
+        )
+
+        val rotatedBitmap = when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+            ExifInterface.ORIENTATION_NORMAL -> bitmap
+            else -> rotateImage(bitmap, 90f)
+        }
+
+        var compressQuality = 100
+        var streamLength: Int
+
+        do {
+            val bmpStream = ByteArrayOutputStream()
+            rotatedBitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+            val bmpPicByteArray = bmpStream.toByteArray()
+            streamLength = bmpPicByteArray.size
+            compressQuality -= 5
+        } while (streamLength > 1000000)
+
+        rotatedBitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+
+        return file
+    }
+
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
+    }
+    /*
+    private fun uploadImage() {
+        if (getFile != null) {
+            val file = getFile as File
+
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "file",
+                file.name,
+                requestImageFile
+            )
+
+            val service = ApiConfig().getApiService().uploadImage(imageMultipart)
+
+            Toast.makeText(this@UploadPhotoActivity, "Uploading Image", Toast.LENGTH_SHORT).show()
+
+            service.enqueue(object : Callback<FileUploadResponse> {
+                override fun onResponse(
+                    call: Call<FileUploadResponse>,
+                    response: Response<FileUploadResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            Toast.makeText(this@UploadPhotoActivity, responseBody.label, Toast.LENGTH_SHORT).show()
+                            //val moveWithDataIntent = Intent(this@UploadPhotoActivity, DetectionResultActivity::class.java)
+                            //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_DEST, responseBody.label)
+                            //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_IMG, responseBody.image_url)
+                            //startActivity(moveWithDataIntent)
+                        }
+                    } else {
+                        Toast.makeText(this@UploadPhotoActivity, response.message(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<FileUploadResponse>, t: Throwable) {
+                    Toast.makeText(this@UploadPhotoActivity, "Gagal instance Retrofit", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this@UploadPhotoActivity, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+        }
+    }
+    */
     companion object{
         const val FILENAME_FORMAT = "dd-MMM-yyyy"
     }
+
+
 }

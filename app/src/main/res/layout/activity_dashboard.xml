@@ -15,10 +15,10 @@
         android:contentDescription="My photo button"
         app:layout_constraintBottom_toTopOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459"
+        app:layout_constraintVertical_bias="0.447"
         app:srcCompat="@drawable/camera_48" />
 
     <ImageButton
@@ -29,10 +29,10 @@
         android:contentDescription="My profile button"
         app:layout_constraintBottom_toTopOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.453"
+        app:layout_constraintVertical_bias="0.447"
         app:srcCompat="@drawable/baseline_person_24" />
 
     <EditText
