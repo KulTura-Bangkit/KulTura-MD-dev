@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -46,10 +47,10 @@ class UploadPhotoActivity : AppCompatActivity() {
         binding.buttonGallery.setOnClickListener {
             openGallery()
         }
-        /*
+
         binding.buttonAnalyze.setOnClickListener{
             uploadImage()
-        }*/
+        }
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -170,14 +171,14 @@ class UploadPhotoActivity : AppCompatActivity() {
             matrix, true
         )
     }
-    /*
+
     private fun uploadImage() {
         if (getFile != null) {
             val file = getFile as File
 
-            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val requestImageFile = file.asRequestBody("image/jpg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "file",
+                "image",
                 file.name,
                 requestImageFile
             )
@@ -194,7 +195,7 @@ class UploadPhotoActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            Toast.makeText(this@UploadPhotoActivity, responseBody.label, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@UploadPhotoActivity, responseBody.label_1, Toast.LENGTH_SHORT).show()
                             //val moveWithDataIntent = Intent(this@UploadPhotoActivity, DetectionResultActivity::class.java)
                             //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_DEST, responseBody.label)
                             //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_IMG, responseBody.image_url)
@@ -212,7 +213,7 @@ class UploadPhotoActivity : AppCompatActivity() {
             Toast.makeText(this@UploadPhotoActivity, "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
         }
     }
-    */
+
     companion object{
         const val FILENAME_FORMAT = "dd-MMM-yyyy"
     }
