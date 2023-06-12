@@ -138,7 +138,12 @@ class UploadPhotoActivity : AppCompatActivity() {
             ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
             ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
             ExifInterface.ORIENTATION_NORMAL -> bitmap
-            else -> rotateImage(bitmap, 90f)
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> bitmap
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> bitmap
+            ExifInterface.ORIENTATION_TRANSPOSE -> bitmap
+            ExifInterface.ORIENTATION_TRANSVERSE -> bitmap
+            ExifInterface.ORIENTATION_UNDEFINED -> rotateImage(bitmap, 90f)
+            else -> bitmap
         }
 
         var compressQuality = 100
