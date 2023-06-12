@@ -4,26 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
-    android:padding="1dp">
+    android:padding="1dp"
+    app:cardBackgroundColor="@color/cream">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
-
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/rv_batik_img"
-            android:layout_width="393dp"
-            android:layout_height="154dp"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
             android:scaleType="fitXY"
+            android:contentDescription="content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:transitionName="img"/>
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
         <TextView
             android:id="@+id/rv_batik_name"
@@ -36,8 +36,8 @@
             app:layout_constraintHorizontal_bias="0.076"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_batik_img"
-            tools:text="Name"
-            android:transitionName="name"/>
+            android:textColor="@color/black"
+            tools:text="Name"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

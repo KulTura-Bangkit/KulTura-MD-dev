@@ -29,6 +29,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/custom_imagebtn"
         android:clipToOutline="true"
+        android:contentDescription="Batik"
         android:contextClickable="true"
         android:gravity="bottom|start"
         android:src="@drawable/btk_img"
@@ -46,6 +47,7 @@
         android:background="@drawable/custom_imagebtn"
         android:src="@drawable/food_img"
         android:clipToOutline="true"
+        android:contentDescription="Makanan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +62,7 @@
         android:background="@drawable/custom_imagebtn"
         android:src="@drawable/house_img"
         android:clipToOutline="true"
+        android:contentDescription="Rumah"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_home_food" />
