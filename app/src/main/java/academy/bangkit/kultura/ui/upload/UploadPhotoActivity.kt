@@ -50,7 +50,7 @@ class UploadPhotoActivity : AppCompatActivity() {
 
         val judul: TextView = findViewById(R.id.textView4)
         hasil = intent.getStringExtra("pilihan")!!
-        judul.text = "Analisa sebuah " + hasil + " !"
+        judul.text = "Analisis sebuah " + hasil + " !"
 
         binding.buttonCamera.setOnClickListener {
             takePhoto()
