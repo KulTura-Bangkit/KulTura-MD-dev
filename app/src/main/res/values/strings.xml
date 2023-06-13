@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name">Kultura</string>
     <string name="gambar">Gambar</string>
-    <string name="search">Search 🔍</string>
-    <string name="recomendations">Recommendations</string>
+    <string name="search">Cari 🔍</string>
+    <string name="recomendations">Rekomendasi</string>
     <string name="nama">Nama</string>
     <string name="nik">NIK</string>
     <string name="email">Email</string>
-    <string name="welcome">Welcome!</string>
-    <string name="identification">Analyze an Object!</string>
-    <string name="camera">Open Camera 📸</string>
-    <string name="gallery">Open Gallery 🖼️</string>
-    <string name="analyze">Analyze! 🐍</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="identification">Analisis sebuah objek!</string>
+    <string name="camera">Buka Kamera 📸</string>
+    <string name="gallery">Buka Galeri 🖼️</string>
+    <string name="analyze">Analisis 🐍</string>
     <string name="option1">Option1 - 100%</string>
     <string name="option2">Option2 - 50%</string>
     <string name="option3">Option3 - 25%</string>
     <string name="pick_picture">Pilih Gambar/Foto</string>
+    <string name="scan">DETEKSI OBJEK</string>
 </resources>

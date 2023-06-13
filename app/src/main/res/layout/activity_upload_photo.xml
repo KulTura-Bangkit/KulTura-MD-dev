@@ -51,32 +51,32 @@
         android:id="@+id/button_camera"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/coco"
         android:text="@string/camera"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_analyze"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/button_gallery"
+        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/button_gallery"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="@color/coco"
         android:text="@string/gallery"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_analyze"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/button_analyze"
-        android:layout_width="117dp"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="61dp"
         android:backgroundTint="@color/coco"
         android:text="@string/analyze"
         android:textColor="@color/white"
