@@ -255,11 +255,6 @@ class UploadPhotoActivity : AppCompatActivity() {
                             opsi3.isVisible = true
                             Toast.makeText(this@UploadPhotoActivity,"Hasil Analisis sudah ditampilkan", Toast.LENGTH_SHORT).show()
 
-
-                            //val moveWithDataIntent = Intent(this@UploadPhotoActivity, DetectionResultActivity::class.java)
-                            //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_DEST, responseBody.label)
-                            //moveWithDataIntent.putExtra(DetectionResultActivity.EXTRA_IMG, responseBody.image_url)
-                            //startActivity(moveWithDataIntent)
                         }
                     } else {
                         Toast.makeText(this@UploadPhotoActivity, response.message(), Toast.LENGTH_SHORT).show()

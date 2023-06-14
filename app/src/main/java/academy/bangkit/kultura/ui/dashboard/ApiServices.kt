@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-data class UserRsponse(
+data class UserResponse(
     @field:SerializedName("items")
     val items: List<Item>
 ) {
@@ -34,15 +34,15 @@ data class UserRsponse(
     )
 }
 
-interface ApiService{
+interface ApiServices{
     @GET("all/{nama}")
     fun getData(
         @Path("nama") nama: String
-    ): Call<List<UserRsponse.Item>>
+    ): Call<List<UserResponse.Item>>
 }
 
-class ApiConfig{
-    fun getApiService(): ApiService {
+class ApiConfigs{
+    fun getApiService(): ApiServices {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
