@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,6 +63,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
+                                var cek:TextView = findViewById(R.id.textView3)
+                                cek.text = responseBody.toString()
 
                             }
                         } else {

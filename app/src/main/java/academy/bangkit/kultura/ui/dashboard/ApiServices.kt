@@ -56,6 +56,6 @@ class ApiConfigs{
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-        return retrofit.create(ApiService::class.java)
+        return retrofit.create(ApiServices::class.java)
     }
 }
