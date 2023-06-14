@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,25 +65,18 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
-                                var cek:TextView = findViewById(R.id.textView3)
-                                cek.text = responseBody.toString()
+                                //var cek:TextView = findViewById(R.id.textView3)
+                                Log.d("Update",responseBody)
+
 
                             }
                         } else {
-                            Toast.makeText(
-                                this@DashboardActivity,
-                                response.message(),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            //Toast.makeText(this@DashboardActivity, response.message(), Toast.LENGTH_SHORT).show()
 
                         }
                     }
                     override fun onFailure(call: Call<List<UserResponse.Item>>, t: Throwable) {
-                        Toast.makeText(
-                            this@DashboardActivity,
-                            "Gagal instance Retrofit",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        //Toast.makeText(this@DashboardActivity, "Coba lagi", Toast.LENGTH_SHORT).show()
 
                     }
                 })

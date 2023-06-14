@@ -12,7 +12,7 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 data class UserResponse(
-    @field:SerializedName("items")
+    @field:SerializedName("data")
     val items: List<Item>
 ) {
     data class Item(
