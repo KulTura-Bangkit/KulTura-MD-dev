@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.198" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textrecom"
         android:layout_width="152dp"
         android:layout_height="32dp"
         android:text="@string/recomendations"
@@ -88,8 +88,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textrecom"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/list_recomendation" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_user"
+        android:layout_width="356dp"
+        android:layout_height="542dp"
+        android:layout_marginTop="22dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
