@@ -59,6 +59,7 @@
         android:layout_width="152dp"
         android:layout_height="32dp"
         android:text="@string/recomendations"
+        android:textSize="20dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerrecom"
         android:layout_width="361dp"
-        android:layout_height="wrap_content"
+        android:layout_height="514dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,10 +95,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user"
-        android:layout_width="356dp"
-        android:layout_height="542dp"
-        android:layout_marginTop="22dp"
+        android:layout_width="370dp"
+        android:layout_height="695dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Search" />

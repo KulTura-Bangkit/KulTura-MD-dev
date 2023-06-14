@@ -17,17 +17,17 @@ data class UserResponse(
 ) {
     data class Item(
 
-        @field:SerializedName("id")
-        val id: Int,
-
         @field:SerializedName("name")
         val name: String,
 
-        @field:SerializedName("description")
-        val description: String,
-
         @field:SerializedName("url_image")
         val url_image: String,
+
+        @field:SerializedName("id")
+        val id: Int,
+
+        @field:SerializedName("description")
+        val description: String,
 
         @field:SerializedName("url_product")
         val url_product: String,
@@ -39,6 +39,10 @@ interface ApiServices{
     fun getData(
         @Path("nama") nama: String
     ): Call<List<UserResponse.Item>>
+
+    @GET("batiks/first")
+    fun batikList(): Call<List<UserResponse.Item>>
+
 }
 
 class ApiConfigs{

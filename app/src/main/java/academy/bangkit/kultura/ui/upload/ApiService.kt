@@ -1,5 +1,6 @@
 package academy.bangkit.kultura.ui.upload
 
+import academy.bangkit.kultura.ui.dashboard.UserResponse
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -7,9 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 data class FileUploadResponse(
@@ -33,6 +32,7 @@ interface ApiService {
     fun uploadImage(
         @Part file: MultipartBody.Part,
     ): Call<FileUploadResponse>
+
     @Multipart
     @POST("/predict2")
     fun uploadImage2(
@@ -44,22 +44,27 @@ interface ApiService {
     fun uploadImage3(
         @Part file: MultipartBody.Part,
     ): Call<FileUploadResponse>
+
+    @GET("all/{nama}")
+    fun getData(
+        @Path("nama") nama: String
+    ): Call<List<UserResponse.Item>>
 }
 class ApiConfig{
-    fun getApiService(): ApiService {
-        val loggingInterceptor =
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        val client = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://kultura-flask-4zvftwq7nq-et.a.run.app/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        return retrofit.create(ApiService::class.java)
-    }
+        fun getApiService(): ApiService {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://kultura-flask-4zvftwq7nq-et.a.run.app/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+            return retrofit.create(ApiService::class.java)
+        }
 }
