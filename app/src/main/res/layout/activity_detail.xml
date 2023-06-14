@@ -9,15 +9,16 @@
 
     <ImageView
         android:id="@+id/detail_img"
-        android:contentDescription="@string/gambar"
         android:layout_width="match_parent"
         android:layout_height="192dp"
+        android:contentDescription="@string/gambar"
+        android:src="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.101"
         app:srcCompat="@color/purple_700" />
 
     <TextView
@@ -36,15 +37,32 @@
 
     <TextView
         android:id="@+id/detail_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="328dp"
+        android:layout_height="460dp"
         android:layout_marginTop="12dp"
+        android:lineSpacingExtra="2sp"
+        android:textAlignment="viewStart"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/detail_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/detail_name"
         app:layout_constraintTop_toBottomOf="@+id/detail_name"
         tools:text="Deskripsi" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/shop_btn"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_shop"
+        android:contentDescription="Shop"
+        android:backgroundTint="@color/orange"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.979" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

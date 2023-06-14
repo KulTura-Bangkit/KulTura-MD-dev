@@ -31,7 +31,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = RecommendAdapter(mutableListOf())
+        adapter = RecommendAdapter(listOf())
 
         val btnMoveActivity1: ImageButton = findViewById(R.id.imageButton1)
         btnMoveActivity1.setOnClickListener(this)
