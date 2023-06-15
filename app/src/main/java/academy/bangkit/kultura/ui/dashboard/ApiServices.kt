@@ -12,6 +12,9 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 data class UserResponse(
+    @field:SerializedName("status")
+    val status: String,
+
     @field:SerializedName("data")
     val items: List<Item>
 ) {
