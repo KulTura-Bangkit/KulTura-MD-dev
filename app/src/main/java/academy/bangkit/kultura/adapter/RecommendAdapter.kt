@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class RecommendAdapter(private val listRec: List<UserResponse.Item>) : RecyclerView.Adapter<RecommendAdapter.ViewHolder>() {
+class RecommendAdapter(private var listRec: List<UserResponse.Item>) : RecyclerView.Adapter<RecommendAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_recomendation, parent, false))
 
@@ -38,10 +38,16 @@ class RecommendAdapter(private val listRec: List<UserResponse.Item>) : RecyclerV
         }
     }
 
-    override fun getItemCount() = listRec.size
+    override fun getItemCount() : Int = listRec.size
 
-    class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val tvImg : ImageView = view.findViewById(R.id.rv_batik_img)
         val tvName : TextView = view.findViewById(R.id.rv_batik_name)
+
+    }
+
+    fun setItems(items: List<UserResponse.Item>) {
+        listRec = items
+        notifyDataSetChanged()
     }
 }

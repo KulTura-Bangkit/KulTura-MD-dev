@@ -3,6 +3,8 @@ package academy.bangkit.kultura.ui.upload
 import academy.bangkit.kultura.R
 import academy.bangkit.kultura.databinding.ActivityUploadPhotoBinding
 import academy.bangkit.kultura.ui.dashboard.DashboardActivity
+import academy.bangkit.kultura.ui.dashboard.UserResponse
+import academy.bangkit.kultura.ui.detail.DetailActivity
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
@@ -15,9 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -26,17 +26,17 @@ import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.*
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UploadPhotoActivity : AppCompatActivity() {
+class UploadPhotoActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadPhotoBinding
     private lateinit var photoPath : String
@@ -51,6 +51,7 @@ class UploadPhotoActivity : AppCompatActivity() {
         val judul: TextView = findViewById(R.id.textView4)
         hasil = intent.getStringExtra("pilihan")!!
         judul.text = "Analisis sebuah " + hasil + " !"
+
 
         binding.buttonCamera.setOnClickListener {
             takePhoto()
@@ -228,29 +229,32 @@ class UploadPhotoActivity : AppCompatActivity() {
                             val opsi1: Button = findViewById(R.id.option1)
                             opsi1.text = responseBody.percent_1.toString() + "% - " + responseBody.label_1
                             opsi1.setOnClickListener{
+                                //navigateToDetailActivity(responseBody.label_1)
                                 val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
-                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                pindah.putExtra("hasil", responseBody.label_1)
-                                startActivity(pindah)
+                                    pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    pindah.putExtra("hasil", responseBody.label_1)
+                                    startActivity(pindah)
                             }
                             opsi1.isVisible = true
                             val opsi2: Button = findViewById(R.id.option2)
                             opsi2.text = responseBody.percent_2.toString() + "% - " + responseBody.label_2
                             opsi2.setOnClickListener{
+                                //navigateToDetailActivity(responseBody.label_2)
                                 val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
-                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                pindah.putExtra("hasil", responseBody.label_2)
-                                startActivity(pindah)
+                                    pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    pindah.putExtra("hasil", responseBody.label_2)
+                                    startActivity(pindah)
 
                             }
                             opsi2.isVisible = true
                             val opsi3: Button = findViewById(R.id.option3)
                             opsi3.text = responseBody.percent_3.toString() + "% - " + responseBody.label_3
                             opsi3.setOnClickListener{
+                                //navigateToDetailActivity(responseBody.label_3)
                                 val pindah = Intent(this@UploadPhotoActivity, DashboardActivity::class.java)
-                                pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                pindah.putExtra("hasil", responseBody.label_3)
-                                startActivity(pindah)
+                                    pindah.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    pindah.putExtra("hasil", responseBody.label_3)
+                                    startActivity(pindah)
                             }
                             opsi3.isVisible = true
                             Toast.makeText(this@UploadPhotoActivity,"Hasil Analisis sudah ditampilkan", Toast.LENGTH_SHORT).show()
@@ -273,10 +277,19 @@ class UploadPhotoActivity : AppCompatActivity() {
         }
     }
 
-
+    private fun navigateToDetailActivity(label: String) {
+        val img = intent.getStringExtra(DetailActivity.EXTRA_IMG)
+        val desc = intent.getStringExtra(DetailActivity.EXTRA_DESC)
+        val shop = intent.getStringExtra(DetailActivity.EXTRADATA)
+        val intent = Intent(this@UploadPhotoActivity, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.EXTRA_NAME, label)
+            putExtra(DetailActivity.EXTRA_IMG, img)
+            putExtra(DetailActivity.EXTRA_DESC, desc)
+            putExtra(DetailActivity.EXTRADATA, shop)
+        }
+        startActivity(intent)
+    }
     companion object{
         const val FILENAME_FORMAT = "dd-MMM-yyyy"
     }
-
-
 }

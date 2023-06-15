@@ -26,10 +26,11 @@ class DetailActivity : AppCompatActivity() {
 
         binding.detailName.text = name
         binding.detailDesc.text = desc
-        Glide.with(this)
-            .load(img)
-            .into(binding.detailImg)
-
+        if (img != null) {
+            Glide.with(this)
+                .load(img)
+                .into(binding.detailImg)
+        }
         val shopBtn = findViewById<FloatingActionButton>(R.id.shop_btn)
         shopBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)

@@ -1,6 +1,5 @@
 package academy.bangkit.kultura.ui.upload
 
-import academy.bangkit.kultura.ui.dashboard.UserResponse
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -23,7 +22,8 @@ data class FileUploadResponse(
     @field:SerializedName("percent 2")
     val percent_2: Int,
     @field:SerializedName("percent 3")
-    val percent_3: Int
+    val percent_3: Int,
+
 )
 
 interface ApiService {
@@ -45,10 +45,6 @@ interface ApiService {
         @Part file: MultipartBody.Part,
     ): Call<FileUploadResponse>
 
-    @GET("all/{nama}")
-    fun getData(
-        @Path("nama") nama: String
-    ): Call<List<UserResponse.Item>>
 }
 class ApiConfig{
         fun getApiService(): ApiService {

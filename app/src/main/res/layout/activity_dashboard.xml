@@ -35,18 +35,14 @@
         app:layout_constraintVertical_bias="0.447"
         app:srcCompat="@drawable/baseline_person_24" />
 
-    <EditText
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/Search"
         android:layout_width="338dp"
         android:layout_height="61dp"
         android:background="@drawable/circular_button_bg"
-        android:ems="5"
-        android:hint="@string/search"
-        android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
+        app:queryHint="Cari..."
+        app:iconifiedByDefault="false"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageButton2"
         app:layout_constraintHorizontal_bias="0.524"

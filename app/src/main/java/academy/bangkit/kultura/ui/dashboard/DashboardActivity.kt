@@ -6,6 +6,7 @@ import academy.bangkit.kultura.databinding.ActivityDashboardBinding
 import academy.bangkit.kultura.ui.home.HomeActivity
 import academy.bangkit.kultura.ui.profile.ProfileActivity
 import android.content.Intent
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +15,9 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -25,6 +29,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var adapter: RecommendAdapter
+    private lateinit var searchView: SearchView
+    private lateinit var itemList: List<UserResponse.Item>
+    private var filteredList: MutableList<UserResponse.Item> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +53,35 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
         remoteGetRecList()
 
+        itemList = mutableListOf()
+
+        searchView = findViewById(R.id.Search)
+        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setHintTextColor(ContextCompat.getColor(this, android.R.color.black))
+        searchEditText.setTextColor(ContextCompat.getColor(this, android.R.color.black))
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+        searchIcon.setColorFilter(ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_IN)
+        val searchCloseButton = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        searchCloseButton.setColorFilter(ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_IN)
+
+
+        val searchText = intent.getStringExtra("hasil")
+        searchView.setQuery(searchText, false)
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    performSearch(it)
+                }
+                return true
+            }
+        })
+/*
         val cari:EditText = findViewById(R.id.Search)
         cari.setText(intent.getStringExtra("hasil"))
         cari.addTextChangedListener(object : TextWatcher {
@@ -97,7 +133,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                 // This method is called after the text has changed.
             }
         })
-
+*/
         val recyclerView: RecyclerView = findViewById(R.id.recyclerrecom)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -122,10 +158,11 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                     call: Call<List<UserResponse.Item>>,
                     response: Response<List<UserResponse.Item>>
                 ) {
-                    if (response.isSuccessful){
-                        Log.d("success", "retrofit konek pak")
+                    if (response.isSuccessful) {
                         val data = response.body()
-                        setDataToAdapter(data!!)
+                        data?.let {
+                            setDataToAdapter(it)
+                        }
                     }
                 }
                 override fun onFailure(call: Call<List<UserResponse.Item>>, t: Throwable) {
@@ -135,11 +172,27 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             })
     }
     fun setDataToAdapter(data: List<UserResponse.Item>) {
-        val listItem = data.map {
-            UserResponse.Item(it.name ,it.url_image ,it.id ,it.description, it.url_product)
+        itemList = data
+        adapter.setItems(itemList)
+    }
+
+    private fun performSearch(query: String?) {
+        filteredList.clear()
+        query?.let {
+            if (it.isNotEmpty()) {
+                for (item in itemList) {
+                    item.name?.let { name ->
+                        if (name.contains(it, true)) {
+                            filteredList.add(item)
+                        }
+                    }
+                }
+            } else {
+                Log.d("error", "data ga ada coyy")
+                filteredList.addAll(itemList)
+            }
         }
-        val adapter = RecommendAdapter(listItem)
-        binding.recyclerrecom.adapter = adapter
+        adapter.setItems(filteredList)
     }
 }
 
