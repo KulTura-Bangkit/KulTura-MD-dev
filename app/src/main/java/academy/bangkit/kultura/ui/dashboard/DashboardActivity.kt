@@ -55,7 +55,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerrecom.layoutManager = layoutManager
 
-        remoteGetRecList()
+
 
         itemList = mutableListOf()
 
@@ -71,6 +71,12 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         var cari: TextView = findViewById(R.id.textrecom)
 
         val searchText = intent.getStringExtra("hasil")
+        if(searchText == null){
+            remoteGetRecList()
+        }else{
+            remoteDataRecList(searchText)
+        }
+
         searchView.setQuery(searchText, false)
         searchView.clearFocus()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
