@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -142,23 +143,27 @@ class UploadPhotoActivity() : AppCompatActivity() {
     fun reduceFileImage(file: File): File {
         val bitmap = BitmapFactory.decodeFile(file.path)
         val ei = ExifInterface(file.path)
+
         val orientation: Int = ei.getAttributeInt(
             ExifInterface.TAG_ORIENTATION,
             ExifInterface.ORIENTATION_UNDEFINED
         )
 
-        val rotatedBitmap = when (orientation) {
+        var check = orientation
+        if(android.os.Build.VERSION.SDK_INT < 29){
+            check = 6969
+            Log.d("info info", android.os.Build.VERSION_CODES.R.toString())
+        }
+        Log.d("info 1", android.os.Build.VERSION_CODES.R.toString())
+        val rotatedBitmap = when (check) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
             ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
             ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
             ExifInterface.ORIENTATION_NORMAL -> bitmap
-            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> bitmap
-            ExifInterface.ORIENTATION_FLIP_VERTICAL -> bitmap
-            ExifInterface.ORIENTATION_TRANSPOSE -> bitmap
-            ExifInterface.ORIENTATION_TRANSVERSE -> bitmap
-            ExifInterface.ORIENTATION_UNDEFINED -> rotateImage(bitmap, 90f)
-            else -> bitmap
+            6969 -> rotateImage(bitmap, 90f)
+            else ->  bitmap
         }
+
 
         var compressQuality = 100
         var streamLength: Int
