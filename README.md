@@ -5,7 +5,7 @@ An application that is thoughtfully designed to assist users in classifying Indo
 ## About this repository
 
 This repository contains our code for our Android application that are made using Kotlin.
-We made the design using Figma. This Android application then can communicate with the Machine Learning model with Flask API and Hapi API that we made
+We made the design using Figma. This Android application then can communicate with the Machine Learning model with Flask API and Hapi API that we made.
 
 ## Our Mobile Development Team
 
